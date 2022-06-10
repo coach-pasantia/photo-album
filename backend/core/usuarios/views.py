@@ -1,0 +1,81 @@
+"""Views Usuarios"""
+
+# Django
+from .serializers import UsuarioSerializer
+from .models import Usuario
+
+# Django Rest Framework
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
+
+# Utils
+import jwt
+import datetime
+
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UsuarioSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data['email']
+        password = request.data['password']
+
+        user = Usuario.objects.filter(email=email).first()
+
+        if user is None:
+            raise AuthenticationFailed('¡El usuario no existe!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('¡Credenciales Inválidas!')
+
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=510),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret',
+                           algorithm='HS256')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+        return response
+
+
+class UserView(APIView):
+    def get(self, request):
+
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('¡Sin autenticar!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('¡Sin autenticar!')
+
+        user = Usuario.objects.filter(id=payload['id']).first()
+        serializer = UsuarioSerializer(user)
+        return Response(serializer.data)
+
+
+class LogoutView(APIView):
+    def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'Sesión Cerrada'
+        }
+        return response
