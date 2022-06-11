@@ -7,6 +7,7 @@ from usuarios.models import Usuario
 
 # Django Rest Framework
 from rest_framework.views import Response
+from rest_framework import generics
 from rest_framework import viewsets
 
 
@@ -38,3 +39,14 @@ class FotoViewSet(viewsets.ModelViewSet):
         foto.usuario = Usuario.objects.get(id=request.data['usuario_id'])
         foto.save()
         return Response({'detail': 'Foto Actualizada'}, status=200)
+
+
+class FotoporEtiqueta(generics.ListAPIView):
+    queryset = Foto.objects.all()
+    serializer_class = FotoSerializer
+
+    def get_queryset(self):
+        etiqueta = self.request.query_params.get('etiqueta', None)
+        if etiqueta is not None:
+            queryset = Foto.objects.filter(etiqueta__icontains=etiqueta)
+        return queryset
