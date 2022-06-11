@@ -51,6 +51,7 @@ class LoginView(APIView):
             'jwt': token,
             'id': user.id,
             'nombre': user.nombre,
+            'username': user.username,
         }
         return response
 
