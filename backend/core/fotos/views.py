@@ -50,3 +50,13 @@ class FotoporEtiqueta(generics.ListAPIView):
         if etiqueta is not None:
             queryset = Foto.objects.filter(etiqueta__icontains=etiqueta)
         return queryset
+
+class FotoporUsername(generics.ListAPIView):
+    queryset = Foto.objects.all()
+    serializer_class = FotoSerializer
+
+    def get_queryset(self):
+        username = self.request.query_params.get('username', None)
+        if username is not None:
+            queryset = Foto.objects.filter(usuario__username=username)
+        return queryset
