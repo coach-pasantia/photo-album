@@ -13,11 +13,34 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# Django
 from django.contrib import admin
 from django.urls import path, include
+
+# DRF YASG
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="PHOTO-ALMBUM API",
+        default_version='v1',
+        description="Serve user photo data",
+        terms_of_service="https://www.ralfxdev-portafolio.tk/",
+        contact=openapi.Contact(email="lopezalexander1019@gmail.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/usuarios/', include('usuarios.urls')),
     path('api/fotos/', include('fotos.urls')),
+
+    path('docs/swagger/', schema_view.with_ui('swagger',
+         cache_timeout=0), name='schema-swagger-ui'),
+    path('docs/redoc/', schema_view.with_ui('redoc',
+         cache_timeout=0), name='schema-redoc'),
 ]
