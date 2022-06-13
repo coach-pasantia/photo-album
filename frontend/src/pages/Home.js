@@ -6,7 +6,7 @@ const Home = () => {
     <React.Fragment>
       <div className="container">
         <div className="row">
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -31,7 +31,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -56,7 +56,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -81,7 +81,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -106,7 +106,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -131,7 +131,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -156,7 +156,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -181,7 +181,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
@@ -206,7 +206,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div key="" className="col-md-4">
+            <div className="col-md-4">
               <div className="card mb-4 shadow-sm">
                 <img
                   className="card-img-top"
