@@ -1,6 +1,7 @@
 """Views Fotos"""
 
 # Django
+from xmlrpc.client import boolean
 from .models import Foto
 from .serializers import FotoSerializer
 from usuarios.models import Usuario
@@ -20,7 +21,9 @@ class FotoViewSet(viewsets.ModelViewSet):
             etiqueta=request.data['etiqueta'],
             link=request.data['link'],
             usuario=Usuario.objects.get(id=request.data['usuario_id']),
+            is_default= request.data['is_default']
         )
+
         if foto.link.startswith('http://') or foto.link.startswith('https://'):
             foto.save()
             return Response({'detail': 'Foto Creada'}, status=200)
@@ -37,8 +40,12 @@ class FotoViewSet(viewsets.ModelViewSet):
         foto.etiqueta = request.data['etiqueta']
         foto.link = request.data['link']
         foto.usuario = Usuario.objects.get(id=request.data['usuario_id'])
-        foto.save()
-        return Response({'detail': 'Foto Actualizada'}, status=200)
+        foto.is_default = request.data['is_default']
+        if foto.link.startswith('http://') or foto.link.startswith('https://'):
+            foto.save()
+            return Response({'detail': 'Foto Actualizada'}, status=200)
+        else:
+            return Response({'detail': 'Ingrese un link válido'}, status=400)
 
 
 class FotoporEtiqueta(generics.ListAPIView):
