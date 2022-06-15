@@ -14,6 +14,7 @@ class Foto(models.Model):
     link = models.URLField(validators=[URLValidator(schemes=['http', 'https'], regex='^(http|https)://')])
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_creada = models.DateTimeField(auto_now_add=True)
+    is_default = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.etiqueta
