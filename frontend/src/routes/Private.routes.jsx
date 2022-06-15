@@ -3,7 +3,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom'
 
 const PrivateRoute = ({ component: RouterComponent }) => {
-  const isAuthenticated = false
+  const isAuthenticated = true
 
   return (
     isAuthenticated ? <RouterComponent /> : <Navigate to='/login' />
