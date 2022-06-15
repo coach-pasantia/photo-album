@@ -27,7 +27,7 @@ const Home = () => {
             className='my-masonry-grid'
             columnClassName='my-masonry-grid_column'
           >
-            {cards/* .filter((card) => card.usuario.username === 'admin' || card.usuario.username === usuario) */.map(card => (
+            {cards.map(card => (
               <div className='col' key={card.id}>
                 <div className='card mb-4 shadow-sm'>
                   <img

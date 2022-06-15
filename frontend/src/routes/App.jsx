@@ -20,7 +20,7 @@ function App () {
       <Navbar />
       <Routes>
         <Route exact path='/' element={<PrivateRoute component={Home} />} />
-        <Route exact path='/login' element={<h1>Login</h1>} />
+        <Route exact path='/login' element={<h1>Login Please</h1>} />
       </Routes>
     </>
   )
