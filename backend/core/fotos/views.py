@@ -54,9 +54,11 @@ class FotoporEtiqueta(generics.ListAPIView):
 
     def get_queryset(self):
         etiqueta = self.request.query_params.get('etiqueta', None)
-        if etiqueta is not None:
-            queryset = Foto.objects.filter(etiqueta__icontains=etiqueta)
+        usuario = self.request.query_params.get('usuario', None)
+        if etiqueta and usuario is not None:
+            queryset = Foto.objects.filter(etiqueta__icontains=etiqueta, usuario__username=usuario)
         return queryset
+        
 
 class FotoporUsername(generics.ListAPIView):
     queryset = Foto.objects.all()
