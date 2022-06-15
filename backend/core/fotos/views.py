@@ -48,7 +48,7 @@ class FotoViewSet(viewsets.ModelViewSet):
             return Response({'detail': 'Ingrese un link válido'}, status=400)
 
 
-class FotoporEtiqueta(generics.ListAPIView):
+class FotoPorEtiqueta(generics.ListAPIView):
     queryset = Foto.objects.all()
     serializer_class = FotoSerializer
 
@@ -60,12 +60,21 @@ class FotoporEtiqueta(generics.ListAPIView):
         return queryset
         
 
-class FotoporUsername(generics.ListAPIView):
+class FotoPorUsuario(generics.ListAPIView):
     queryset = Foto.objects.all()
     serializer_class = FotoSerializer
 
     def get_queryset(self):
-        username = self.request.query_params.get('username', None)
-        if username is not None:
-            queryset = Foto.objects.filter(usuario__username=username)
+        usuario = self.request.query_params.get('usuario', None)
+        if usuario is not None:
+            queryset = Foto.objects.filter(usuario__username=usuario)
+        return queryset
+
+
+class FotosDefault(generics.ListAPIView):
+    queryset = Foto.objects.all()
+    serializer_class = FotoSerializer
+
+    def get_queryset(self):
+        queryset = Foto.objects.filter(is_default=True)
         return queryset
