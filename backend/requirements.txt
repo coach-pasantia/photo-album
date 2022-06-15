@@ -3,3 +3,4 @@ djangorestframework
 cors
 django-cors-headers
 pyjwt
+drf-yasg
